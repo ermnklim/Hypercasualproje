@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: "Assets/YEN\u0130SAHNE/SAHNE1.unity"
+    guid: d2158392ef3d08d428484c03b8e85dd5
+  - enabled: 1
+    path: "Assets/YEN\u0130SAHNE/Silmeee.unity"
+    guid: 2b02c29601fc84e49a18fde7fed33f95
+  - enabled: 1
+    path: "Assets/YEN\u0130SAHNE/Savas.unity"
+    guid: 10a50bd8e1ce9b24cb4fa5bcafcfa92e
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 3a0d9c5b247308949990ecede567d20a,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: d533b9ba960e7fc4193efb1e24510af7, type: 2}
