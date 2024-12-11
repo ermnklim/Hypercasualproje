@@ -7,10 +7,7 @@ public class HyperCasualEkipman : MonoBehaviour
 {
     public GameObject aciklamaPanel;
     public TextMeshProUGUI aciklamaText;
-    
-    // Ekipmanlar listesini ekleyelim
     public List<Ekipman> ekipmanlar = new List<Ekipman>();
-
     public enum EkipmanTuru
     {
         TekEl,
@@ -34,7 +31,6 @@ public class HyperCasualEkipman : MonoBehaviour
 
     private void Awake()
     {
-        // Butonları ayarla
         foreach (var ekipman in ekipmanlar)
         {
             ekipman.ozellikButton.onClick.AddListener(() => EkipmanOzellikGoster(ekipman));
@@ -44,10 +40,7 @@ public class HyperCasualEkipman : MonoBehaviour
 
     private void EkipmanOzellikGoster(Ekipman ekipman)
     {
-        // Panel'i aç
         aciklamaPanel.SetActive(true);
-
-        // Silah bilgilerini formatlayıp göster
         string bilgiler = $"İsim: {ekipman.isim}\n" +
                           $"Tür: {ekipman.tur}\n" +
                           $"Açıklama: {ekipman.aciklama}\n\n" +
@@ -59,19 +52,13 @@ public class HyperCasualEkipman : MonoBehaviour
 
         aciklamaText.text = bilgiler;
     }
-
     private void EkipmanSec(Ekipman secilenEkipman)
     {
-        // Tüm silahları devre dışı bırak
         foreach (var ekipman in ekipmanlar)
         {
             ekipman.model.SetActive(false);
         }
-
-        // Seçilen silahı aktif hale getir
         secilenEkipman.model.SetActive(true);
-
-        // Silahın özelliklerini uygulayabilir veya başka işlemler yapabilirsiniz
         Debug.Log($"{secilenEkipman.isim} seçildi ve aktif hale getirildi.");
     }
 

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using TMPro; // TextMeshPro'yu kullanmak için gerekli
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class Can : MonoBehaviour
@@ -11,15 +11,15 @@ public class Can : MonoBehaviour
     private bool isDeactivating = false;
     public bool small;
 
-    public HypercasualEnvanter envanter; // Envanter referansı
-    public HypercasualEnvanter.EnvanterTurleri envanterTuru; // Çarpışma sırasında hangi tür envanter artırılacak
+    public HypercasualEnvanter envanter; 
+    public HypercasualEnvanter.EnvanterTurleri envanterTuru; 
 
-    public TextMeshProUGUI envanterText; // Envanteri ekranda gösterecek TextMeshPro
+    public TextMeshProUGUI envanterText; 
 
     void Start()
     {
-        mycan = maxcan; // Başlangıç değeri
-        UpdateUI(); // Başlangıçta UI'yi güncelle
+        mycan = maxcan; 
+        UpdateUI(); 
     }
 
     void Update()
@@ -27,39 +27,39 @@ public class Can : MonoBehaviour
         if (mycan <= 0)
         {
             mycan = 0;
-            if (!isDeactivating) // Şu anda devre dışı bırakılmıyorsa
+            if (!isDeactivating) 
             {
                 isDeactivating = true;
                 Invoke("ReactivateCan", Random.Range(minTimeToReactivate, maxTimeToReactivate));
-                gameObject.SetActive(false); // Nesneyi devre dışı bırak
+                gameObject.SetActive(false); 
             }
         }
 
-        UpdateUI(); // UI'yi her frame'de güncelle
+        UpdateUI(); 
     }
 
     private void ReactivateCan()
     {
-        mycan = maxcan; // Yeniden etkinleştirildiğinde canı sıfırla
-        isDeactivating = false; // Devre dışı bırakılma durumunu sıfırla
+        mycan = maxcan; 
+        isDeactivating = false; 
         gameObject.SetActive(true);
     }
 
     public void IncreaseCan(float amount)
     {
         mycan += amount;
-        if (mycan > maxcan) mycan = maxcan; // Maksimum canı aşmasını engelle
-        UpdateUI(); // UI'yi güncelle
+        if (mycan > maxcan) mycan = maxcan; 
+        UpdateUI(); 
     }
 
     public void DecreaseCan(float amount)
     {
         mycan -= amount;
-        if (mycan < 0) mycan = 0; // Minimum canın altına düşmesini engelle
-        UpdateUI(); // UI'yi güncelle
+        if (mycan < 0) mycan = 0;
+        UpdateUI();
     }
 
-    // UI güncellemesi için yardımcı fonksiyon
+   
     private void UpdateUI()
     {
         
@@ -71,16 +71,15 @@ public class Can : MonoBehaviour
         {
             if (small)
             {
-                // Envanter miktarını artır
                 if (envanter != null)
                 {
                     envanter.MiktarArttir(envanterTuru, 1);
                     if (envanterText != null && envanter != null)
                     {
-                        int envanterMiktari = envanter.KaynakMiktariniAl(envanterTuru); // Envanterdeki miktarı al
-                        envanterText.text = $"{envanterTuru.ToString()}: {envanterMiktari}"; // Kaynak türünü ve miktarını göster
+                        int envanterMiktari = envanter.KaynakMiktariniAl(envanterTuru); 
+                        envanterText.text = $"{envanterTuru.ToString()}: {envanterMiktari}"; 
                     }
-                    gameObject.SetActive(false); // Nesneyi devre dışı bırak
+                    gameObject.SetActive(false);
                    Invoke("disabletext",1f);
                 }
             }
@@ -98,16 +97,15 @@ public class Can : MonoBehaviour
         {
             if (small)
             {
-                // Envanter miktarını artır
                 if (envanter != null)
                 {
                     envanter.MiktarArttir(envanterTuru, 1);
                     if (envanterText != null && envanter != null)
                     {
-                        int envanterMiktari = envanter.KaynakMiktariniAl(envanterTuru); // Envanterdeki miktarı al
-                        envanterText.text = $"{envanterTuru.ToString()}: {envanterMiktari}"; // Kaynak türünü ve miktarını göster
+                        int envanterMiktari = envanter.KaynakMiktariniAl(envanterTuru); 
+                        envanterText.text = $"{envanterTuru.ToString()}: {envanterMiktari}";
                     }
-                    gameObject.SetActive(false); // Nesneyi devre dışı bırak
+                    gameObject.SetActive(false); 
                     Invoke("disabletext",.3f);
                 }
             }

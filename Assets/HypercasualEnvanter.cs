@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;  // TextMeshPro namespace
+using TMPro;
 
 public class HypercasualEnvanter : MonoBehaviour
 {
-    // Kaynak türleri için enum
     public enum EnvanterTurleri
     {
         Altin,
@@ -16,49 +15,42 @@ public class HypercasualEnvanter : MonoBehaviour
         Meyve
     }
 
-    // Kaynak bilgisi için sınıf
     [System.Serializable]
     public class EnvanterObjesi
     {
-        public EnvanterTurleri envanterTuru;    // Kaynağın türü
-        public int miktar;                      // Kaynağın miktarı
-        public Image envanterResmi;             // Kaynağın UI görseli
-        public TextMeshProUGUI envanterMiktarText; // Kaynağın miktarını gösteren TextMeshPro
+        public EnvanterTurleri envanterTuru;
+        public int miktar;
+        public Image envanterResmi;
+        public TextMeshProUGUI envanterMiktarText;
     }
 
-    // Envanterdeki kaynakların listesi
     [SerializeField] private List<EnvanterObjesi> envanterObjeleri = new List<EnvanterObjesi>();
 
-    // Başlangıçta her şeyin görünümünü günceller
     void Start()
     {
         EnvanterGorunumuGuncelle();
     }
 
-    // Envanterdeki kaynakların miktarını UI'ye göre günceller
     void EnvanterGorunumuGuncelle()
     {
         foreach (EnvanterObjesi obje in envanterObjeleri)
         {
-            // Görselleri güncelle
             if (obje.miktar > 0)
             {
-                obje.envanterResmi.gameObject.SetActive(true);  // Resmi aktif et
+                obje.envanterResmi.gameObject.SetActive(true);
             }
             else
             {
-                obje.envanterResmi.gameObject.SetActive(false); // Resmi deaktif et
+                obje.envanterResmi.gameObject.SetActive(false);
             }
 
-            // TextMeshPro miktarını güncelle
             if (obje.envanterMiktarText != null)
             {
-                obje.envanterMiktarText.text = obje.miktar.ToString();  // Miktarı yazdır
+                obje.envanterMiktarText.text = obje.miktar.ToString();
             }
         }
     }
 
-    // Miktarını arttıran fonksiyon
     public void MiktarArttir(EnvanterTurleri tur, int miktar)
     {
         foreach (EnvanterObjesi obje in envanterObjeleri)
@@ -69,24 +61,22 @@ public class HypercasualEnvanter : MonoBehaviour
                 break;
             }
         }
-        EnvanterGorunumuGuncelle();  // UI güncelle
+        EnvanterGorunumuGuncelle();
     }
 
-    // Miktarını azaltan fonksiyon
     public void MiktarAzalt(EnvanterTurleri tur, int miktar)
     {
         foreach (EnvanterObjesi obje in envanterObjeleri)
         {
             if (obje.envanterTuru == tur)
             {
-                obje.miktar = Mathf.Max(0, obje.miktar - miktar);  // Miktar 0'dan küçük olmasın
+                obje.miktar = Mathf.Max(0, obje.miktar - miktar);
                 break;
             }
         }
-        EnvanterGorunumuGuncelle();  // UI güncelle
+        EnvanterGorunumuGuncelle();
     }
 
-    // Miktarı manuel olarak ayarlamak için fonksiyon
     public void MiktarGuncelle(EnvanterTurleri tur, int yeniMiktar)
     {
         foreach (EnvanterObjesi obje in envanterObjeleri)
@@ -97,10 +87,9 @@ public class HypercasualEnvanter : MonoBehaviour
                 break;
             }
         }
-        EnvanterGorunumuGuncelle();  // UI güncelle
+        EnvanterGorunumuGuncelle();
     }
 
-    // Envanterdeki kaynağın miktarını almak için fonksiyon
     public int KaynakMiktariniAl(EnvanterTurleri tur)
     {
         foreach (EnvanterObjesi obje in envanterObjeleri)
@@ -110,6 +99,6 @@ public class HypercasualEnvanter : MonoBehaviour
                 return obje.miktar;
             }
         }
-        return 0; // Kaynak bulunamadıysa 0 döndür
+        return 0;
     }
 }

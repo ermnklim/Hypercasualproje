@@ -10,7 +10,8 @@ public class ObjeYerlestirici : MonoBehaviour
         Taslar,
         Agaclar,
         Hayvanlar,
-        Meyveler,
+        Meyveler, 
+        Düsmanlar,
         Uluslar
     }
 
@@ -24,15 +25,13 @@ public class ObjeYerlestirici : MonoBehaviour
 
     [SerializeField] private List<KategoriBilgisi> kategorilerBilgisi = new List<KategoriBilgisi>();
     [SerializeField] private Transform plane;
-
-    // Uluslar için önceden tanımlanmış pozisyonlar
     [SerializeField] private List<Transform> uluslarPozisyonlari = new List<Transform>();
 
     private List<Vector3> kullanilanPozisyonlar = new List<Vector3>();
     private List<Transform> kullanilmayanUlusPozisyonlari;
 
     private const int MAKS_DENEME = 100;
-    private const float ULUS_MESAFE_CARPANI = 5.5f; // Uluslara olan mesafeyi artırmak için çarpan
+    private const float ULUS_MESAFE_CARPANI = 5.5f;
 
     void Awake()
     {
@@ -41,7 +40,6 @@ public class ObjeYerlestirici : MonoBehaviour
             plane = GameObject.FindGameObjectWithTag("Plane").transform;
         }
 
-        // Kullanılabilir ulus pozisyonlarını listeye aktar
         kullanilmayanUlusPozisyonlari = new List<Transform>(uluslarPozisyonlari);
 
         KategorileriYerlestir();
@@ -72,14 +70,10 @@ public class ObjeYerlestirici : MonoBehaviour
             int randomIndex = Random.Range(0, kullanilmayanUlusPozisyonlari.Count);
             Transform secilenPozisyon = kullanilmayanUlusPozisyonlari[randomIndex];
 
-            // Uluslar pozisyonunu mesafe kontrolü yapılmadan kullanıyoruz
             obje.transform.position = secilenPozisyon.position;
             obje.SetActive(true);
 
-            // Kullanılan pozisyonları listeye ekle
             kullanilanPozisyonlar.Add(secilenPozisyon.position);
-
-            // Pozisyonu kullanılmayanlar listesinden çıkar
             kullanilmayanUlusPozisyonlari.RemoveAt(randomIndex);
         }
         else
@@ -143,7 +137,6 @@ public class ObjeYerlestirici : MonoBehaviour
         {
             float aktifMesafe = minimumMesafe;
 
-            // Eğer pozisyon bir ulusun konumuysa mesafeyi artır
             if (IsUlusPozisyonu(kullanilanPozisyon))
             {
                 aktifMesafe *= ULUS_MESAFE_CARPANI;
@@ -161,7 +154,7 @@ public class ObjeYerlestirici : MonoBehaviour
     {
         foreach (Transform ulusPozisyon in uluslarPozisyonlari)
         {
-            if (Vector3.Distance(pozisyon, ulusPozisyon.position) < 0.1f) // Eşitlik kontrolü için tolerans
+            if (Vector3.Distance(pozisyon, ulusPozisyon.position) < 0.1f)
             {
                 return true;
             }
